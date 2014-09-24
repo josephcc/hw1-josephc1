@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.uima.UimaContext;
 import org.apache.uima.resource.ResourceInitializationException;
 
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -32,11 +33,32 @@ import model.Sentence;
 
 public class PosTagNamedEntityRecognizer extends JCasAnnotator_ImplBase {
 
+  private Chunker chunker;
+  
+  @Override
+  public void initialize(UimaContext context)
+          throws ResourceInitializationException {
+    super.initialize(context);
+
+    String currentDir = System.getProperty("user.dir");
+    File modelFile = new File(currentDir + "/src/main/resources/data/ne-en-bio-genetag.HmmChunker");
+    
+    try {
+      chunker = (Chunker) AbstractExternalizable.readObject(modelFile);
+    } catch (IOException e1) {
+      e1.printStackTrace();
+      return;
+    } catch (ClassNotFoundException e1) {
+      e1.printStackTrace();
+      return;
+    }
+    
+  }
 
   public PosTagNamedEntityRecognizer() throws ResourceInitializationException {
   }
 
-  public Map<Integer, Integer> getGeneSpans(String text, Chunker chunker) {
+  public Map<Integer, Integer> getGeneSpans(String text) {
     Map<Integer, Integer> begin2end = new HashMap<Integer, Integer>();
     Chunking chunking = chunker.chunk(text);
     Set<Chunk> chunkSet = chunking.chunkSet();
@@ -50,20 +72,6 @@ public class PosTagNamedEntityRecognizer extends JCasAnnotator_ImplBase {
 
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-
-    String currentDir = System.getProperty("user.dir");
-    File modelFile = new File(currentDir + "/src/main/resources/data/ne-en-bio-genetag.HmmChunker");
-    
-    Chunker chunker = null;
-    try {
-      chunker = (Chunker) AbstractExternalizable.readObject(modelFile);
-    } catch (IOException e1) {
-      e1.printStackTrace();
-      return;
-    } catch (ClassNotFoundException e1) {
-      e1.printStackTrace();
-      return;
-    }
     
     FSIterator<Annotation> iter = aJCas.getAnnotationIndex(Sentence.type).iterator(); 
 
@@ -72,7 +80,7 @@ public class PosTagNamedEntityRecognizer extends JCasAnnotator_ImplBase {
 
       System.out.println(sentence.getId());
       System.out.println(sentence.getText());
-      Map<Integer, Integer> genes = getGeneSpans(sentence.getText(), chunker);
+      Map<Integer, Integer> genes = getGeneSpans(sentence.getText());
       for (Entry<Integer, Integer> range : genes.entrySet())
       {
           Integer begin = range.getKey();
