@@ -129,8 +129,9 @@ public class MyCollectionReader extends CollectionReader_ImplBase {
 
       Sentence sentence = new Sentence(jcas);
       sentence.setId(id);
-      ;
       sentence.setText(text);
+      sentence.setBegin(0);
+      sentence.setEnd(text.length() - 1);
       sentence.addToIndexes(jcas);
     } else {
       br.close();

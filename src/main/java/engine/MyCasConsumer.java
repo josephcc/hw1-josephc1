@@ -34,8 +34,6 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
    * 
    * Initialize output file handle
    * 
-   * @author  Joseph Chee Chang josephcc@cmu.edu
-   * 
    * @see     org.apache.uima.collection.CasConsumer_ImplBase#initialize(org.apache.uima.resource.ResourceSpecifier, java.util.Map)
    */
   @Override
@@ -59,8 +57,6 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
    * 
    * Release output file handle before class is destroyed
    * 
-   * @author  Joseph Chee Chang josephcc@cmu.edu
-   * 
    * @see org.apache.uima.collection.CasConsumer_ImplBase#destroy()
    */
   @Override
@@ -74,7 +70,6 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
    * 
    * This function is called multiple-times during runtime, each time with a CAS and potentially multiple annotations.
    * 
-   * @author  Joseph Chee Chang josephcc@cmu.edu
    * 
    * @see org.apache.uima.collection.base_cpm.CasObjectProcessor#processCas(org.apache.uima.cas.CAS)
    */
