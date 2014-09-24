@@ -18,14 +18,32 @@ import org.apache.uima.resource.ResourceProcessException;
 import org.apache.uima.resource.ResourceSpecifier;
 
 public class MyCasConsumer extends CasConsumer_ImplBase {
-  
-  private PrintWriter outFile;
 
+  /**
+   * Handle to the final output file
+   */
+  private PrintWriter outFile;
+  
+  /**
+   * Path to the final output file
+   */
+  private final String filename = "hw1-joseph1.out";
+
+  /**
+   * Initializer
+   * 
+   * Initialize output file handle
+   * 
+   * @author  Joseph Chee Chang josephcc@cmu.edu
+   * 
+   * @see     org.apache.uima.collection.CasConsumer_ImplBase#initialize(org.apache.uima.resource.ResourceSpecifier, java.util.Map)
+   */
   @Override
-  public boolean initialize(ResourceSpecifier aSpecifier, Map<String,Object> aAdditionalParams) throws ResourceInitializationException {
+  public boolean initialize(ResourceSpecifier aSpecifier, Map<String, Object> aAdditionalParams)
+          throws ResourceInitializationException {
     boolean out = super.initialize(aSpecifier, aAdditionalParams);
     try {
-      outFile = new PrintWriter("hw1-joseph1.out", "UTF-8");
+      outFile = new PrintWriter(filename, "UTF-8");
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -35,14 +53,31 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
     }
     return out;
   }
-  
+
+  /**
+   * Release resources
+   * 
+   * Release output file handle before class is destroyed
+   * 
+   * @author  Joseph Chee Chang josephcc@cmu.edu
+   * 
+   * @see org.apache.uima.collection.CasConsumer_ImplBase#destroy()
+   */
   @Override
   public void destroy() {
     outFile.close();
     super.destroy();
   }
 
-
+  /**
+   * Gather data for output
+   * 
+   * This function is called multiple-times during runtime, each time with a CAS and potentially multiple annotations.
+   * 
+   * @author  Joseph Chee Chang josephcc@cmu.edu
+   * 
+   * @see org.apache.uima.collection.base_cpm.CasObjectProcessor#processCas(org.apache.uima.cas.CAS)
+   */
   @Override
   public void processCas(CAS aCAS) throws ResourceProcessException {
     JCas jcas;
@@ -51,12 +86,13 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
     } catch (CASException e) {
       throw new ResourceProcessException(e);
     }
-    
-    FSIterator<Annotation> it = jcas.getAnnotationIndex(Gene.type).iterator(); 
+
+    FSIterator<Annotation> it = jcas.getAnnotationIndex(Gene.type).iterator();
     while (it.hasNext()) {
       Gene gene = (Gene) it.next();
-      String out = gene.getId() + "|" + gene.getBegin() + " " + gene.getEnd() + "|" + gene.getGene();
-//      System.out.println(out);
+      String out = gene.getId() + "|" + gene.getBegin() + " " + gene.getEnd() + "|"
+              + gene.getGene();
+      // System.out.println(out);
       outFile.println(out);
     }
   }
