@@ -4,8 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 
 import model.Gene;
 import model.Sentence;
@@ -16,12 +18,59 @@ import org.apache.uima.collection.CollectionException;
 import org.apache.uima.collection.CollectionReader_ImplBase;
 import org.apache.uima.examples.SourceDocumentInformation;
 import org.apache.uima.jcas.JCas;
+import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
 
 public class MyCollectionReader extends CollectionReader_ImplBase {
 
-  Boolean empty = false; 
+  private Boolean empty = false;
+  private BufferedReader br = null;
+  private int TotalLines;
+  private int CurrentLines = 0;
+  
+
+  public static int countLines(String filename) throws IOException {
+    InputStream is = new BufferedInputStream(new FileInputStream(filename));
+    try {
+        byte[] c = new byte[1024];
+        int count = 0;
+        int readChars = 0;
+        boolean empty = true;
+        while ((readChars = is.read(c)) != -1) {
+            empty = false;
+            for (int i = 0; i < readChars; ++i) {
+                if (c[i] == '\n') {
+                    ++count;
+                }
+            }
+        }
+        return (count == 0 && !empty) ? 1 : count;
+    } finally {
+        is.close();
+    }
+}
+  
+  @Override
+  public void initialize() throws ResourceInitializationException {
+    super.initialize();
+    // open input stream to file
+    String filename = "src/main/resources/data/sample.in";
+    try {
+      TotalLines = countLines(filename);
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    File file = new File(filename);
+    try {
+      br = new BufferedReader(new FileReader(file));
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
   
   @Override
   public void getNext(CAS aCAS) throws IOException, CollectionException {
@@ -31,43 +80,33 @@ public class MyCollectionReader extends CollectionReader_ImplBase {
     } catch (CASException e) {
       throw new CollectionException(e);
     }
-
-    // open input stream to file
-    File file = new File("src/main/resources/data/sample.in");
-    BufferedReader br = new BufferedReader(new FileReader(file));
     String line;
-    while ((line = br.readLine()) != null) {
+    if ((line = br.readLine()) != null) {
+      CurrentLines += 1;
       int sep = line.indexOf(' ');
       String id = line.substring(0, sep);
       String text = line.substring(sep+1);
-      
-      System.out.println(id);
-      
+            
       Sentence sentence = new Sentence(jcas);
       sentence.setId(id);;
       sentence.setText(text);
       sentence.addToIndexes(jcas);
+    } else {
+      br.close();
+      empty = true;
     }
-    br.close();
-    
-    empty = true;
   }
 
   @Override
   public void close() throws IOException {
     // TODO Auto-generated method stub
-
+    br.close();
   }
 
   @Override
   public Progress[] getProgress() {
     // TODO Auto-generated method stub
-    if (empty) {
-      return new Progress[]{new ProgressImpl(0,1,Progress.ENTITIES)};
-    }
-    else {
-      return new Progress[]{new ProgressImpl(1,1,Progress.ENTITIES)};
-    }
+    return new Progress[]{new ProgressImpl(CurrentLines,TotalLines,Progress.ENTITIES)};
   }
 
   @Override
