@@ -8,19 +8,14 @@
     <typeDescription>
       <name>model.Gene</name>
       <description/>
-      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <supertypeName>model.Sentence</supertypeName>
       <features>
         <featureDescription>
           <name>gene</name>
           <description/>
           <rangeTypeName>uima.cas.String</rangeTypeName>
         </featureDescription>
-        <featureDescription>
-          <name>id</name>
-          <description/>
-          <rangeTypeName>uima.cas.String</rangeTypeName>
-        </featureDescription>
-      </features>
+        </features>
     </typeDescription>
   <typeDescription>
       <name>model.Sentence</name>

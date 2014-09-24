@@ -11,10 +11,10 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Wed Sep 24 01:02:43 EDT 2014
+ * Updated by JCasGen Wed Sep 24 02:38:07 EDT 2014
  * XML source: /Users/josephcc/git/courses/software_engineering/hw1-josephc1/src/main/java/model/typeSystemDescriptor.xml
  * @generated */
-public class Gene extends Annotation {
+public class Gene extends Sentence {
   /** @generated
    * @ordered 
    */
@@ -96,28 +96,6 @@ public class Gene extends Annotation {
     if (Gene_Type.featOkTst && ((Gene_Type)jcasType).casFeat_gene == null)
       jcasType.jcas.throwFeatMissing("gene", "model.Gene");
     jcasType.ll_cas.ll_setStringValue(addr, ((Gene_Type)jcasType).casFeatCode_gene, v);}    
-   
-    
-  //*--------------*
-  //* Feature: id
-
-  /** getter for id - gets 
-   * @generated
-   * @return value of the feature 
-   */
-  public String getId() {
-    if (Gene_Type.featOkTst && ((Gene_Type)jcasType).casFeat_id == null)
-      jcasType.jcas.throwFeatMissing("id", "model.Gene");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((Gene_Type)jcasType).casFeatCode_id);}
-    
-  /** setter for id - sets  
-   * @generated
-   * @param v value to set into the feature 
-   */
-  public void setId(String v) {
-    if (Gene_Type.featOkTst && ((Gene_Type)jcasType).casFeat_id == null)
-      jcasType.jcas.throwFeatMissing("id", "model.Gene");
-    jcasType.ll_cas.ll_setStringValue(addr, ((Gene_Type)jcasType).casFeatCode_id, v);}    
   }
 
     

@@ -93,6 +93,7 @@ public class PosTagNamedEntityRecognizer extends JCasAnnotator_ImplBase {
           gene.setEnd(end);
           gene.setGene(name);
           gene.setId(sentence.getId());
+          gene.setText(sentence.getText());
           gene.addToIndexes();
           
       }
