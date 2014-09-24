@@ -23,7 +23,7 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
    * Handle to the final output file
    */
   private PrintWriter outFile;
-  
+
   /**
    * Path to the final output file
    */
@@ -34,7 +34,8 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
    * 
    * Initialize output file handle
    * 
-   * @see     org.apache.uima.collection.CasConsumer_ImplBase#initialize(org.apache.uima.resource.ResourceSpecifier, java.util.Map)
+   * @see org.apache.uima.collection.CasConsumer_ImplBase#initialize(org.apache.uima.resource.ResourceSpecifier,
+   *      java.util.Map)
    */
   @Override
   public boolean initialize(ResourceSpecifier aSpecifier, Map<String, Object> aAdditionalParams)
@@ -68,7 +69,8 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
   /**
    * Gather data for output
    * 
-   * This function is called multiple-times during runtime, each time with a CAS and potentially multiple annotations.
+   * This function is called multiple-times during runtime, each time with a CAS and potentially
+   * multiple annotations.
    * 
    * 
    * @see org.apache.uima.collection.base_cpm.CasObjectProcessor#processCas(org.apache.uima.cas.CAS)
@@ -85,8 +87,13 @@ public class MyCasConsumer extends CasConsumer_ImplBase {
     FSIterator<Annotation> it = jcas.getAnnotationIndex(Gene.type).iterator();
     while (it.hasNext()) {
       Gene gene = (Gene) it.next();
-      String out = gene.getId() + "|" + gene.getBegin() + " " + gene.getEnd() + "|"
-              + gene.getGene();
+      String preText = gene.getText().substring(0, gene.getBegin());
+      String name = gene.getGene();
+      int preSpace = preText.length() - preText.replaceAll(" ", "").length();
+      int inSpace = name.length() - name.replaceAll(" ", "").length();
+      String out = gene.getId() + "|" + (gene.getBegin() - preSpace) + " "
+              + (gene.getEnd() - preSpace - inSpace - 1) + "|" + gene.getGene();
+
       // System.out.println(out);
       outFile.println(out);
     }
