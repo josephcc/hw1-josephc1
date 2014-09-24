@@ -1,9 +1,14 @@
 package engine;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+
+import model.Gene;
+import model.Sentence;
 
 import org.apache.uima.cas.CAS;
 import org.apache.uima.cas.CASException;
@@ -29,19 +34,22 @@ public class MyCollectionReader extends CollectionReader_ImplBase {
 
     // open input stream to file
     File file = new File("src/main/resources/data/sample.in");
-    BufferedInputStream fis = 
-            new BufferedInputStream(new FileInputStream(file));
-    try {
-      byte[] contents = new byte[(int) file.length()];
-      fis.read(contents);
-      String text = new String(contents);;
-
-      jcas.setDocumentText(text);
-    } finally {
-      if (fis != null)
-        fis.close();
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    String line;
+    while ((line = br.readLine()) != null) {
+      int sep = line.indexOf(' ');
+      String id = line.substring(0, sep);
+      String text = line.substring(sep+1);
+      
+      System.out.println(id);
+      
+      Sentence sentence = new Sentence(jcas);
+      sentence.setId(id);;
+      sentence.setText(text);
+      sentence.addToIndexes(jcas);
     }
-
+    br.close();
+    
     empty = true;
   }
 

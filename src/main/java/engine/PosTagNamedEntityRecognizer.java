@@ -15,7 +15,9 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
+import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
+import org.apache.uima.jcas.tcas.Annotation;
 
 import com.aliasi.chunk.Chunk;
 import com.aliasi.chunk.Chunker;
@@ -23,6 +25,7 @@ import com.aliasi.chunk.Chunking;
 import com.aliasi.util.AbstractExternalizable;
 
 import model.Gene;
+import model.Sentence;
 
 
 
@@ -47,9 +50,6 @@ public class PosTagNamedEntityRecognizer extends JCasAnnotator_ImplBase {
 
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    // TODO Auto-generated method stub
-    //System.out.println("test");
-    // get document text
 
     String currentDir = System.getProperty("user.dir");
     File modelFile = new File(currentDir + "/src/main/resources/data/ne-en-bio-genetag.HmmChunker");
@@ -65,28 +65,27 @@ public class PosTagNamedEntityRecognizer extends JCasAnnotator_ImplBase {
       return;
     }
     
-    String docText = aJCas.getDocumentText();
-    String lines[] = docText.split("\\r?\\n");
-    for(String line : lines){
-      int sep = line.indexOf(' ');
-      String id = line.substring(0, sep);
-      String text = line.substring(sep+1);
-      System.out.println(id);
-      System.out.println(text);
-      Map<Integer, Integer> genes = getGeneSpans(text, chunker);
-      for (Entry<Integer, Integer> gene : genes.entrySet())
+    FSIterator<Annotation> iter = aJCas.getAnnotationIndex(Sentence.type).iterator(); 
+
+    while (iter.hasNext()) {
+      Sentence sentence = (Sentence) iter.next();
+
+      System.out.println(sentence.getId());
+      System.out.println(sentence.getText());
+      Map<Integer, Integer> genes = getGeneSpans(sentence.getText(), chunker);
+      for (Entry<Integer, Integer> range : genes.entrySet())
       {
-          Integer begin = gene.getKey();
-          Integer end = gene.getValue();
-          String name = text.substring(begin, end);
+          Integer begin = range.getKey();
+          Integer end = range.getValue();
+          String name = sentence.getText().substring(begin, end);
           System.out.println(begin + "/" + end + " -> " + name);
           
-          Gene annotation = new Gene(aJCas);
-          annotation.setBegin(begin);
-          annotation.setEnd(end);
-          annotation.setId(id);
-          annotation.setGene(name);
-          annotation.addToIndexes();
+          Gene gene = new Gene(aJCas);
+          gene.setBegin(begin);
+          gene.setEnd(end);
+          gene.setGene(name);
+          gene.setId(sentence.getId());
+          gene.addToIndexes();
           
       }
       System.out.println("-----");

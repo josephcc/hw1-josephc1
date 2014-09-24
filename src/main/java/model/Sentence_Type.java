@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Sep 23 17:53:20 EDT 2014 */
+/* First created by JCasGen Wed Sep 24 01:02:43 EDT 2014 */
 package model;
 
 import org.apache.uima.jcas.JCas;
@@ -16,7 +16,7 @@ import org.apache.uima.jcas.tcas.Annotation_Type;
 /** 
  * Updated by JCasGen Wed Sep 24 01:02:43 EDT 2014
  * @generated */
-public class Gene_Type extends Annotation_Type {
+public class Sentence_Type extends Annotation_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -26,49 +26,25 @@ public class Gene_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (Gene_Type.this.useExistingInstance) {
+  			 if (Sentence_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = Gene_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = Sentence_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new Gene(addr, Gene_Type.this);
-  			   Gene_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new Sentence(addr, Sentence_Type.this);
+  			   Sentence_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new Gene(addr, Gene_Type.this);
+        } else return new Sentence(addr, Sentence_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = Gene.typeIndexID;
+  public final static int typeIndexID = Sentence.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("model.Gene");
- 
-  /** @generated */
-  final Feature casFeat_gene;
-  /** @generated */
-  final int     casFeatCode_gene;
-  /** @generated
-   * @param addr low level Feature Structure reference
-   * @return the feature value 
-   */ 
-  public String getGene(int addr) {
-        if (featOkTst && casFeat_gene == null)
-      jcas.throwFeatMissing("gene", "model.Gene");
-    return ll_cas.ll_getStringValue(addr, casFeatCode_gene);
-  }
-  /** @generated
-   * @param addr low level Feature Structure reference
-   * @param v value to set 
-   */    
-  public void setGene(int addr, String v) {
-        if (featOkTst && casFeat_gene == null)
-      jcas.throwFeatMissing("gene", "model.Gene");
-    ll_cas.ll_setStringValue(addr, casFeatCode_gene, v);}
-    
-  
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("model.Sentence");
  
   /** @generated */
   final Feature casFeat_id;
@@ -80,7 +56,7 @@ public class Gene_Type extends Annotation_Type {
    */ 
   public String getId(int addr) {
         if (featOkTst && casFeat_id == null)
-      jcas.throwFeatMissing("id", "model.Gene");
+      jcas.throwFeatMissing("id", "model.Sentence");
     return ll_cas.ll_getStringValue(addr, casFeatCode_id);
   }
   /** @generated
@@ -89,8 +65,32 @@ public class Gene_Type extends Annotation_Type {
    */    
   public void setId(int addr, String v) {
         if (featOkTst && casFeat_id == null)
-      jcas.throwFeatMissing("id", "model.Gene");
+      jcas.throwFeatMissing("id", "model.Sentence");
     ll_cas.ll_setStringValue(addr, casFeatCode_id, v);}
+    
+  
+ 
+  /** @generated */
+  final Feature casFeat_text;
+  /** @generated */
+  final int     casFeatCode_text;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getText(int addr) {
+        if (featOkTst && casFeat_text == null)
+      jcas.throwFeatMissing("text", "model.Sentence");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_text);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setText(int addr, String v) {
+        if (featOkTst && casFeat_text == null)
+      jcas.throwFeatMissing("text", "model.Sentence");
+    ll_cas.ll_setStringValue(addr, casFeatCode_text, v);}
     
   
 
@@ -101,17 +101,17 @@ public class Gene_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public Gene_Type(JCas jcas, Type casType) {
+  public Sentence_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
  
-    casFeat_gene = jcas.getRequiredFeatureDE(casType, "gene", "uima.cas.String", featOkTst);
-    casFeatCode_gene  = (null == casFeat_gene) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_gene).getCode();
-
- 
     casFeat_id = jcas.getRequiredFeatureDE(casType, "id", "uima.cas.String", featOkTst);
     casFeatCode_id  = (null == casFeat_id) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_id).getCode();
+
+ 
+    casFeat_text = jcas.getRequiredFeatureDE(casType, "text", "uima.cas.String", featOkTst);
+    casFeatCode_text  = (null == casFeat_text) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_text).getCode();
 
   }
 }

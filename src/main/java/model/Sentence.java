@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Tue Sep 23 17:53:20 EDT 2014 */
+/* First created by JCasGen Wed Sep 24 01:02:43 EDT 2014 */
 package model;
 
 import org.apache.uima.jcas.JCas; 
@@ -14,12 +14,12 @@ import org.apache.uima.jcas.tcas.Annotation;
  * Updated by JCasGen Wed Sep 24 01:02:43 EDT 2014
  * XML source: /Users/josephcc/git/courses/software_engineering/hw1-josephc1/src/main/java/model/typeSystemDescriptor.xml
  * @generated */
-public class Gene extends Annotation {
+public class Sentence extends Annotation {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(Gene.class);
+  public final static int typeIndexID = JCasRegistry.register(Sentence.class);
   /** @generated
    * @ordered 
    */
@@ -33,14 +33,14 @@ public class Gene extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Gene() {/* intentionally empty block */}
+  protected Sentence() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public Gene(int addr, TOP_Type type) {
+  public Sentence(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -48,7 +48,7 @@ public class Gene extends Annotation {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public Gene(JCas jcas) {
+  public Sentence(JCas jcas) {
     super(jcas);
     readObject();   
   } 
@@ -58,7 +58,7 @@ public class Gene extends Annotation {
    * @param begin offset to the begin spot in the SofA
    * @param end offset to the end spot in the SofA 
   */  
-  public Gene(JCas jcas, int begin, int end) {
+  public Sentence(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);
@@ -77,28 +77,6 @@ public class Gene extends Annotation {
  
     
   //*--------------*
-  //* Feature: gene
-
-  /** getter for gene - gets 
-   * @generated
-   * @return value of the feature 
-   */
-  public String getGene() {
-    if (Gene_Type.featOkTst && ((Gene_Type)jcasType).casFeat_gene == null)
-      jcasType.jcas.throwFeatMissing("gene", "model.Gene");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((Gene_Type)jcasType).casFeatCode_gene);}
-    
-  /** setter for gene - sets  
-   * @generated
-   * @param v value to set into the feature 
-   */
-  public void setGene(String v) {
-    if (Gene_Type.featOkTst && ((Gene_Type)jcasType).casFeat_gene == null)
-      jcasType.jcas.throwFeatMissing("gene", "model.Gene");
-    jcasType.ll_cas.ll_setStringValue(addr, ((Gene_Type)jcasType).casFeatCode_gene, v);}    
-   
-    
-  //*--------------*
   //* Feature: id
 
   /** getter for id - gets 
@@ -106,18 +84,40 @@ public class Gene extends Annotation {
    * @return value of the feature 
    */
   public String getId() {
-    if (Gene_Type.featOkTst && ((Gene_Type)jcasType).casFeat_id == null)
-      jcasType.jcas.throwFeatMissing("id", "model.Gene");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((Gene_Type)jcasType).casFeatCode_id);}
+    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_id == null)
+      jcasType.jcas.throwFeatMissing("id", "model.Sentence");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_id);}
     
   /** setter for id - sets  
    * @generated
    * @param v value to set into the feature 
    */
   public void setId(String v) {
-    if (Gene_Type.featOkTst && ((Gene_Type)jcasType).casFeat_id == null)
-      jcasType.jcas.throwFeatMissing("id", "model.Gene");
-    jcasType.ll_cas.ll_setStringValue(addr, ((Gene_Type)jcasType).casFeatCode_id, v);}    
+    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_id == null)
+      jcasType.jcas.throwFeatMissing("id", "model.Sentence");
+    jcasType.ll_cas.ll_setStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_id, v);}    
+   
+    
+  //*--------------*
+  //* Feature: text
+
+  /** getter for text - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public String getText() {
+    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_text == null)
+      jcasType.jcas.throwFeatMissing("text", "model.Sentence");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_text);}
+    
+  /** setter for text - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setText(String v) {
+    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_text == null)
+      jcasType.jcas.throwFeatMissing("text", "model.Sentence");
+    jcasType.ll_cas.ll_setStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_text, v);}    
   }
 
     
