@@ -22,8 +22,9 @@ import org.apache.uima.util.ProgressImpl;
 
 /**
  * Reads one input file line by line, no data is cached in memory.
+ * 
  * @author josephcc
- *
+ * 
  */
 public class SingleFileCollectionReader extends CollectionReader_ImplBase {
 
@@ -36,13 +37,12 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
    * Handle for the (only) input file
    */
   private BufferedReader br = null;
-  
+
   /**
    * Path to the only input file
    */
-  private final String filename = "hw1.in";
+   private final String filename = "hw1.in";
 //  private final String filename = "src/main/resources/data/sample.in";
-
 
   /**
    * Total number of lines in the input file, to provide progress.
@@ -58,9 +58,12 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
    * Count number of lines in a file
    * 
    * Static function that counts how many lines a file has.
-   * @param filename path to the target file
+   * 
+   * @param filename
+   *          path to the target file
    * @return number of lines
-   * @throws IOException if file does not exists throws IOException
+   * @throws IOException
+   *           if file does not exists throws IOException
    */
   public static int countLines(String filename) throws IOException {
     InputStream is = new BufferedInputStream(new FileInputStream(filename));
@@ -90,7 +93,7 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
    * 
    * @see org.apache.uima.collection.CollectionReader_ImplBase#initialize()
    */
-   
+
   @Override
   public void initialize() throws ResourceInitializationException {
     super.initialize();
@@ -110,7 +113,8 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
   /**
    * Read records
    * 
-   * If the input file still contains more data, read one line, parse ID / text, and package into Sentence
+   * If the input file still contains more data, read one line, parse ID / text, and package into
+   * Sentence
    * 
    * @see org.apache.uima.collection.CollectionReader#getNext(org.apache.uima.cas.CAS)
    */

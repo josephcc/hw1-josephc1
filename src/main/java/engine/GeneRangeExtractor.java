@@ -2,6 +2,7 @@ package engine;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -30,9 +31,9 @@ public class GeneRangeExtractor implements RangeExtractor {
   private Chunker chunker;
 
   /**
-   * relative path to the pre-trained model file
+   * relative path to the pre-trained model file as resource
    */
-  private final String filename = "src/main/resources/data/ne-en-bio-genetag.HmmChunker";
+  private final String resourceName = "/ne-en-bio-genetag.HmmChunker";
 
   // Static member holds only one instance of the
   // SingletonExample class
@@ -58,11 +59,8 @@ public class GeneRangeExtractor implements RangeExtractor {
    */
   private void initialize() {
 
-    String currentDir = System.getProperty("user.dir");
-    File modelFile = new File(currentDir + "/" + filename);
-
     try {
-      chunker = (Chunker) AbstractExternalizable.readObject(modelFile);
+      chunker = (Chunker) AbstractExternalizable.readResourceObject(resourceName);
     } catch (IOException e1) {
       e1.printStackTrace();
       return;
