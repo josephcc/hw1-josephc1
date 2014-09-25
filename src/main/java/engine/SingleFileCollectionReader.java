@@ -40,7 +40,8 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
   /**
    * Path to the only input file
    */
-  private final String filename = "src/main/resources/data/sample.in";
+  private final String filename = "hw1.in";
+//  private final String filename = "src/main/resources/data/sample.in";
 
 
   /**
