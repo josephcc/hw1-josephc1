@@ -20,7 +20,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
 
-public class MyCollectionReader extends CollectionReader_ImplBase {
+public class SingleFileCollectionReader extends CollectionReader_ImplBase {
 
   /**
    * Indicates if there are no more data to read.

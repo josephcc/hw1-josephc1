@@ -46,7 +46,7 @@ public class GeneRangeExtractor implements RangeExtractor {
    * 
    * Load the pre-trained model once when object is initialized called when the singleton is created
    */
-  public void initialize()  {
+  private void initialize()  {
 
     String currentDir = System.getProperty("user.dir");
     File modelFile = new File(currentDir + "/" + filename);

@@ -17,7 +17,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
 import org.apache.uima.resource.ResourceSpecifier;
 
-public class MyCasConsumer extends CasConsumer_ImplBase {
+public class GeneConsumer extends CasConsumer_ImplBase {
 
   /**
    * Handle to the final output file
