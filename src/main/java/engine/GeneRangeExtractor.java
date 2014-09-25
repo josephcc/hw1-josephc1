@@ -12,15 +12,25 @@ import com.aliasi.chunk.Chunker;
 import com.aliasi.chunk.Chunking;
 import com.aliasi.util.AbstractExternalizable;
 
+/**
+ * Extract Gene mentions in a given text
+ * 
+ * Implements the RangeExtractor interface and extract gene sequence in a input text using HMM
+ * GENETAG from LingPipe
+ * 
+ * @author josephcc
+ * 
+ */
+
 public class GeneRangeExtractor implements RangeExtractor {
 
   /**
    * Chunker for GENETAG NER tagger
    */
   private Chunker chunker;
-  
+
   /**
-   * relative path to the pre-trained model file 
+   * relative path to the pre-trained model file
    */
   private final String filename = "src/main/resources/data/ne-en-bio-genetag.HmmChunker";
 
@@ -34,19 +44,19 @@ public class GeneRangeExtractor implements RangeExtractor {
 
   // Providing Global point of access
   public static GeneRangeExtractor getSingletonInstance() {
-      if (null == singletonInstance) {
-          singletonInstance = new GeneRangeExtractor();
-          singletonInstance.initialize();
-      }
-      return singletonInstance;
+    if (null == singletonInstance) {
+      singletonInstance = new GeneRangeExtractor();
+      singletonInstance.initialize();
+    }
+    return singletonInstance;
   }
-  
+
   /**
    * Initializer
    * 
    * Load the pre-trained model once when object is initialized called when the singleton is created
    */
-  private void initialize()  {
+  private void initialize() {
 
     String currentDir = System.getProperty("user.dir");
     File modelFile = new File(currentDir + "/" + filename);
@@ -62,15 +72,16 @@ public class GeneRangeExtractor implements RangeExtractor {
     }
 
   }
-  
 
   /**
    * Extract gene sequence from text
    * 
    * Find spans of gene appearance in a given English text
    * 
-   * @param text A English sentence that may or may not contains some gene sequence
-   * @return A Map that map begin indexes to end indexes of where gene sequence appear in the input text 
+   * @param text
+   *          A English sentence that may or may not contains some gene sequence
+   * @return A Map that map begin indexes to end indexes of where gene sequence appear in the input
+   *         text
    */
   public Map<Integer, Integer> getSpans(String text) {
     Map<Integer, Integer> begin2end = new HashMap<Integer, Integer>();

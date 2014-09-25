@@ -12,6 +12,13 @@ import org.apache.uima.jcas.tcas.Annotation;
 import model.Gene;
 import model.Sentence;
 
+/**
+ * 
+ * Extract Range of different information based on a strategy.
+ * 
+ * @author josephcc
+ *
+ */
 public class RangeExtractionAnnotator extends JCasAnnotator_ImplBase {
 
   /**

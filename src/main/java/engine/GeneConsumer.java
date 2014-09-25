@@ -17,6 +17,15 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
 import org.apache.uima.resource.ResourceSpecifier;
 
+/**
+ * Output to file
+ * 
+ * GeneConsumer process model.Gene objects by fixing the space offsets and writes them to the output
+ * file
+ * 
+ * @author josephcc
+ * 
+ */
 public class GeneConsumer extends CasConsumer_ImplBase {
 
   /**

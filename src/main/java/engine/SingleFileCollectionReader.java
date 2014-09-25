@@ -20,6 +20,11 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
 
+/**
+ * Reads one input file line by line, no data is cached in memory.
+ * @author josephcc
+ *
+ */
 public class SingleFileCollectionReader extends CollectionReader_ImplBase {
 
   /**
