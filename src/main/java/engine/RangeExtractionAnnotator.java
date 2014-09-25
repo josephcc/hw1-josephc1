@@ -40,14 +40,14 @@ public class RangeExtractionAnnotator extends JCasAnnotator_ImplBase {
     while (iter.hasNext()) {
       Sentence sentence = (Sentence) iter.next();
 
-      System.out.println(sentence.getId());
-      System.out.println(sentence.getText());
+//      System.out.println(sentence.getId());
+//      System.out.println(sentence.getText());
       Map<Integer, Integer> genes = extractor.getSpans(sentence.getText());
       for (Entry<Integer, Integer> range : genes.entrySet()) {
         Integer begin = range.getKey();
         Integer end = range.getValue();
         String name = sentence.getText().substring(begin, end);
-        System.out.println(begin + "/" + end + " -> " + name);
+//        System.out.println(begin + "/" + end + " -> " + name);
 
         Gene gene = new Gene(aJCas);
         gene.setBegin(begin);
@@ -58,7 +58,7 @@ public class RangeExtractionAnnotator extends JCasAnnotator_ImplBase {
         gene.addToIndexes();
 
       }
-      System.out.println("-----");
+//      System.out.println("-----");
     }
 
   }

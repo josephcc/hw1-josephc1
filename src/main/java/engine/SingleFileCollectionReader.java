@@ -94,18 +94,15 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
   @Override
   public void initialize() throws ResourceInitializationException {
     super.initialize();
-    // open input stream to file
     try {
       TotalLines = countLines(filename);
     } catch (IOException e1) {
-      // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     File file = new File(filename);
     try {
       br = new BufferedReader(new FileReader(file));
     } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
